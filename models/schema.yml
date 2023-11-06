@@ -2,20 +2,8 @@
 version: 2
 
 models:
-models:
-  - name: customers
-    description: Data and record of customers
-    columns:
-      - name: customer_id
-        tests:
-          - unique
-          - not_null
-      - name: name
-        tests:
-          - dbt_utils.not_empty_string
-
   - name: stg_customers
-    description: This model cleans up customer data
+    description: This model queries and cleans customer data from BigQuery's public datasets.
     columns:
       - name: id
         tests:
@@ -23,7 +11,7 @@ models:
           - not_null
 
   - name: stg_orders
-    description: This model cleans up order data
+    description: This model queries and cleans order data from BigQuery's public datasets.
     columns:
       - name: id
         tests:
@@ -39,3 +27,73 @@ models:
           - relationships:
               to: ref('stg_customers')
               field: id
+
+  - name: stg_order_items
+    description: This model queries and cleans order item data from BigQuery's public datasets
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_products
+    description: This model queries and cleans product data from BigQuery's public datasets
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+          
+  - name: stg_warehouses
+    description: This model queries and cleans distribution center/warehouse data from BigQuery's public datasets
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+
+  - name: customers
+    description: Data and records of customers, capturing unique customer identifiers, names, gender, age, addresses, and order-related metrics.
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+      - name: name
+        tests:
+          - dbt_utils.not_empty_string
+
+  - name: products_ordered
+    description: Data and records of products that have been ordered, including product identifiers, order details, category, product name, brand, pricing information, and the associated warehouse.
+    columns:
+      - name: product_ordered_id
+        tests:
+          - not_null
+          - unique
+
+      - name: product_name
+        tests:
+          - dbt_utils.not_empty_string
+
+  - name: orders
+    description: Data and records of customer orders, including order identifiers, customer information, order date, product details, quantities, pricing, sales, and order status.
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+          
+      - name: customer_name
+        tests:
+          - dbt_utils.not_empty_string
+
+      - name: country
+        tests:
+          - dbt_utils.not_empty_string
+
+      - name: address
+        tests:
+          - dbt_utils.not_empty_string
+
+      - name: product
+        tests:
+          - dbt_utils.not_empty_string
