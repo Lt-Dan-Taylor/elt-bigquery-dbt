@@ -2,20 +2,41 @@
 version: 2
 
 models:
-  - name: my_first_dbt_model
-    description: "A starter dbt model"
+models:
+  - name: customers
+    description: Data and record of customers
     columns:
-      - name: id
-        description: "The primary key for this table"
+      - name: customer_id
         tests:
           - unique
           - not_null
 
-  - name: my_second_dbt_model
-    description: "A starter dbt model"
+      - name: name
+        tests:
+          - dbt_utils.not_empty_string
+
+  - name: stg_customers
+    description: This model cleans up customer data
     columns:
       - name: id
-        description: "The primary key for this table"
         tests:
           - unique
           - not_null
+
+  - name: stg_orders
+    description: This model cleans up order data
+    columns:
+      - name: id
+        tests:
+          - unique
+          - not_null
+      - name: status
+        tests:
+          - accepted_values:
+              values: ['Shipped', 'Complete', 'Returned', 'Cancelled', 'Processing']
+      - name: customer_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: id
