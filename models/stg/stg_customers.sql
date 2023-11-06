@@ -9,4 +9,4 @@ SELECT
     street_address,
     traffic_source
 
-FROM `bigquery-public-data`.thelook_ecommerce.users
+FROM `bigquery-public-data.thelook_ecommerce.users`

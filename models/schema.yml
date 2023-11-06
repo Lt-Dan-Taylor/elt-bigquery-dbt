@@ -10,7 +10,6 @@ models:
         tests:
           - unique
           - not_null
-
       - name: name
         tests:
           - dbt_utils.not_empty_string
