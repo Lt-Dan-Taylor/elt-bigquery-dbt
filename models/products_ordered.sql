@@ -1,3 +1,5 @@
+{{ config(materialized='table', primary_key='product_ordered_id') }}
+
 WITH
 {{ select_ref(['order_items', 'products', 'warehouses'], ['stg_order_items', 'stg_products', 'stg_warehouses']) }}
 
