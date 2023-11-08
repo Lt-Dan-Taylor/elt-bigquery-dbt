@@ -10,6 +10,16 @@ final AS (
         orders.id AS order_id,
         customers.customer_id,
         orders.order_date,
+        orders.status,
+        CASE
+            WHEN status = 'Complete' THEN orders.delivered_date
+            WHEN status = 'Shipped' THEN orders.shipped_date
+            WHEN status = 'Processing' THEN orders.order_date
+            WHEN status = 'Cancelled' THEN orders.order_date
+            WHEN status = 'Returned' THEN orders.returned_date
+
+            ELSE NULL
+        END AS status_date,
         customers.name AS customer_name,
         customers.country,
         customers.address,
@@ -17,8 +27,7 @@ final AS (
         products_ordered.category,
         orders.num_of_item AS quantity,
         products_ordered.sale_price AS price_per_unit,
-        products_ordered.sale_price * orders.num_of_item AS sales,
-        orders.status
+        products_ordered.sale_price * orders.num_of_item AS sales
 
     FROM orders
 
