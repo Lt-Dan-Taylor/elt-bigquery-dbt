@@ -11,6 +11,7 @@ final AS (
         customers.customer_id,
         orders.order_date,
         orders.status,
+        
         CASE
             WHEN status = 'Complete' THEN orders.delivered_date
             WHEN status = 'Shipped' THEN orders.shipped_date
@@ -20,6 +21,7 @@ final AS (
 
             ELSE NULL
         END AS status_date,
+        
         customers.name AS customer_name,
         customers.country,
         customers.address,

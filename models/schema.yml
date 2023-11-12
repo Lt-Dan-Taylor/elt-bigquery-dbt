@@ -1,5 +1,31 @@
-
 version: 2
+
+sources:
+  - name: ecommerce_public
+    database: bigquery-public-data
+    schema: thelook_ecommerce
+    tables:
+    - name: users
+      identifier: users
+    - name: order_items
+      identifier: order_items
+    - name: orders
+      identifier: orders
+    - name: products
+      identifier: products
+    - name: distribution_centers
+      identifier: distribution_centers
+
+  - name: ecommerce_dbt
+    database: dbt-project-404011
+    schema: ecommerce_dbt
+    tables:
+      - name: customers
+        identifier: customers
+      - name: products_ordered
+        identifier: products_ordered
+      - name: orders
+        identifier: orders
 
 models:
   - name: stg_customers

@@ -4,4 +4,5 @@ SELECT
     latitude,
     longitude
 
-FROM `bigquery-public-data.thelook_ecommerce.distribution_centers`
+FROM 
+    {{ source('ecommerce_public', 'distribution_centers') }}

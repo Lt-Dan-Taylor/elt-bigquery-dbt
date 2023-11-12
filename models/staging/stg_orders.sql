@@ -8,4 +8,5 @@ SELECT
     status,
     num_of_item
 
-FROM `bigquery-public-data.thelook_ecommerce.orders`
+FROM 
+    {{ source('ecommerce_public', 'orders') }}

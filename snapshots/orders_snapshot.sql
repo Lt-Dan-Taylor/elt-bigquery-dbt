@@ -12,6 +12,8 @@
     )
 }}
 
-SELECT * FROM `dbt-project-404011`.ecommerce_dbt.orders
+SELECT * 
+FROM 
+   {{ source('ecommerce_dbt', 'orders') }}
 
 {% endsnapshot %}

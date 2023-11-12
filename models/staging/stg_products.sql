@@ -8,4 +8,5 @@ SELECT
     department,
     distribution_center_id AS warehouse_id
 
-FROM `bigquery-public-data.thelook_ecommerce.products`
+FROM 
+    {{ source('ecommerce_public', 'products') }}
