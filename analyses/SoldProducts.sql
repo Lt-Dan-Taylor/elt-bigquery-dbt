@@ -4,10 +4,10 @@ SELECT
     ROUND(SUM(orders.sales), 2) AS TotalSales
 
 FROM
-    {{ source('ecommerce_dbt', 'products_ordered') }} AS products_ordered
+    {{ ref('products_ordered') }}
 
 LEFT JOIN
-    {{ source('ecommerce_dbt', 'orders') }} AS orders
+    {{ ref('orders') }}
     ON products_ordered.order_id = orders.order_id
 
 GROUP BY ProductBrand, ProductName
